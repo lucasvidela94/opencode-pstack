@@ -4,6 +4,8 @@ Brief, per shipped change. Upstream content versions live in `UPSTREAM_COMMIT`.
 
 ## Unreleased
 
+- `reflect`, `recall`, `teach`, `bro`: router now cites only ported skills.
+- `<host-skills>` / `<host-session-store>` conventions for Cursor path schemes.
 - `setup-models`: original skill mapping pstack roles to host models.
 - `scripts/link-skills.sh`: symlink installs for contributors.
 - `CLAUDE.md` restored as pointer to `AGENTS.md`.

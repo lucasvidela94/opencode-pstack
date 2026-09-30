@@ -22,6 +22,10 @@ ALLOWLIST_RESIDUE = [
     ("playbooks/eval.md", "agent-transcripts"),
     ("playbooks/session-pickup.md", "agent-transcripts"),
     ("skills/show-me-your-work/SKILL.md", "agent-transcripts"),
+    ("skills/reflect/SKILL.md", "agent-transcripts"),
+    ("skills/reflect/SKILL.md", "~/.cursor"),
+    ("skills/recall/SKILL.md", "agent-transcripts"),
+    ("skills/recall/SKILL.md", "~/.cursor"),
 ]
 ALLOWLIST_LINK = {"url"}  # upstream-verbatim template placeholder (why/references)
 

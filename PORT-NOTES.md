@@ -3,7 +3,7 @@
 How this repo relates to upstream, and every deliberate deviation. Nothing here is invented: skill bodies are upstream's, translated mechanically by `scripts/adapt-upstream.py` (re-runnable). Host mappings cite official docs only (OpenCode V2 docs; Claude Code `skills` docs; Codex `skills`/plugin docs).
 
 - Upstream: `cursor/plugins`, path `pstack/`, pinned in `UPSTREAM_COMMIT` (`fae2c6ed9582`). Upstream has 47 skills.
-- Ported (41 skills): `poteto-mode`, `how`, `why`, `architect`, `arena`, `swarm`, `tdd`, `interrogate`, `blast-radius`, `unslop`, `no-comments`, `technical-writing`, `show-me-your-work`, `figure-it-out`, `create-verification-skill`, `maintain-verification-skill`, `typescript-best-practices`, `setup-models` + all 23 `principle-*` leaf skills (kept as skills, like upstream). `setup-models` is original to this repo.
+- Ported (45 skills): `poteto-mode`, `how`, `why`, `architect`, `arena`, `swarm`, `tdd`, `interrogate`, `blast-radius`, `unslop`, `no-comments`, `technical-writing`, `show-me-your-work`, `figure-it-out`, `create-verification-skill`, `maintain-verification-skill`, `typescript-best-practices`, `setup-models`, `reflect`, `recall`, `teach`, `bro` + all 23 `principle-*` leaf skills (kept as skills, like upstream). `setup-models` is original to this repo.
 - Ported alongside: all 23 `poteto-mode` playbooks, `poteto-mode/references/bugbot-triage.md`, per-skill `references/` trees, agents `poteto-agent` + `comment-sicko`.
 - `arena` + `swarm` are included (not deferred): `architect` Phase B runs the **arena** skill, and `poteto-mode`/autopilot fan-out routes through **swarm**.
 - This repo self-registers its skills for OpenCode via `opencode.jsonc` (`skills: ["./skills"]`) instead of a committed `.opencode/skills` mirror: one source of truth, no duplication to drift. Distribution to other projects is `npx skills add` or the host manifests.
@@ -26,6 +26,7 @@ How this repo relates to upstream, and every deliberate deviation. Nothing here 
 | `` `readonly`: `true`/`false` `` | read-only / with full tools (see hosts) |
 | `` `/setup-pstack` ``, `` `pstack-models.mdc` `` | role-model configuration (see `skills/poteto-mode/references/hosts/`) |
 | `` `.cursor/skills/<path>` `` | `` `<host-skills>/<path>` `` + per-host legend (OpenCode `.opencode/skills/`, Claude Code `.claude/skills/`, Codex `.agents/skills/`; `<host-skills>` defined in `hosts/_contract.md`) |
+| Cursor path schemes (transcript store, slug scheme) | `` `<host-session-store>` `` (+ contract row); the slug-scheme clause is dropped as inapplicable |
 | `is_background: true` (agent) | `mode: subagent` (OpenCode host package only) |
 | frontmatter `name: Poteto Mode` etc. | `name:` := directory id (lowercase kebab, required for portable installs) |
 | frontmatter `disable-model-invocation`, `mode`, `icon`, `color`, `reminder` | dropped (Cursor-only; canonical frontmatter is open-standard only) |
@@ -47,4 +48,4 @@ How this repo relates to upstream, and every deliberate deviation. Nothing here 
 
 ## Not yet ported (phase 2)
 
-`reflect`, `recall`, `teach`, `bro`, `automate-me`, `setup-pstack`, `make-bot-ui`. Router text may name them; treat as unavailable until ported.
+`automate-me`, `setup-pstack`, `make-bot-ui`. Router text may name them; treat as unavailable until ported.

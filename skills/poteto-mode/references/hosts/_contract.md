@@ -12,6 +12,7 @@ Skills in this repo never name host tools. They use these verbs; the lead resolv
 | load skill `<id>` | read that skill's full instructions into this run |
 | role model (`<role>` line, default `<slug>`) | model configured for that role; `auto`/`inherit-parent` = run on the parent session model |
 | `<host-skills>` | the active host's project skills directory (OpenCode `.opencode/skills/`, Claude Code `.claude/skills/`, Codex `.agents/skills/`) |
+| `<host-session-store>` | where the host keeps session history on disk, if anywhere (Cursor: transcript files; other hosts: conversation history plus decision trails — never another project's sessions) |
 
 ## Fallbacks (all hosts)
 

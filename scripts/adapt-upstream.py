@@ -23,6 +23,8 @@ CORE_SKILLS = [
     "technical-writing", "show-me-your-work",
     # phase 2b: bespoke playbooks + project-local verification skills
     "figure-it-out", "create-verification-skill", "maintain-verification-skill",
+    # phase 2c: close the router (poteto-mode cites all of these)
+    "reflect", "recall", "teach", "bro",
 ]
 # Skills whose scripts/ helpers are portable and referenced by the body.
 # (poteto-mode/scripts stays omitted: Cursor-oriented tooling.)
@@ -62,6 +64,8 @@ LIMITS_FILES = {
     "skills/arena/SKILL.md",
     "skills/swarm/SKILL.md",
     "skills/show-me-your-work/SKILL.md",
+    "skills/reflect/SKILL.md",
+    "skills/recall/SKILL.md",
 }
 
 HOSTS = "skills/poteto-mode/references/hosts/"
@@ -89,9 +93,16 @@ BODY_RULES = [
     (re.compile(r"Task schema"), f"subagent call format (see `{HOSTS}`)"),
     (re.compile(r"<Task as a verb phrase>"), "<subagent as a verb phrase>"),
     (re.compile(r"Substituting `generalPurpose`"), "Substituting another general-purpose subagent"),
-    (re.compile(r"`?\.cursor/skills/([^\s`]+)`?"),
+    (re.compile(r"`?(?:~/)?\.cursor/skills/([^\s`]*)`?"),
      r"`<host-skills>/\1` (OpenCode `.opencode/skills/`, Claude Code `.claude/skills/`, "
      r"Codex `.agents/skills/`; see `" + HOSTS + "`)"),
+    (re.compile(r"`?~/\.cursor/plugins/([^\s`]*)`?"),
+     r"the host's plugin directory\1"),
+    (re.compile(r"`?~/\.cursor/projects/[^\s`]*`?"),
+     r"`<host-session-store>` (see `" + HOSTS + "`)"),
+    # slug clause documented Cursor's path scheme; inapplicable once neutralized
+    (re.compile(r", where `<slug>` is the workspace path with the leading slash dropped and each \"/\" turned into \"-\" \(so `/Users/you/proj` becomes `Users-you-proj`\)"),
+     ""),
 ]
 
 

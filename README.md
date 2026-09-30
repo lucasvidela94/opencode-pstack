@@ -1,7 +1,7 @@
 # poteto-mode for OpenCode, Claude Code & Codex
 
 [![check](https://github.com/lucasvidela94/opencode-pstack/actions/workflows/check.yml/badge.svg)](https://github.com/lucasvidela94/opencode-pstack/actions/workflows/check.yml)
-![skills](https://img.shields.io/badge/skills-41-blue.svg)
+![skills](https://img.shields.io/badge/skills-45-blue.svg)
 ![license](https://img.shields.io/badge/license-MIT-green.svg)
 
 > Also listed on [skills.sh](https://skills.sh/lucasvidela94/opencode-pstack/poteto-mode) — installs there rank the leaderboard.
@@ -38,6 +38,8 @@ OpenCode also needs its agents/commands (the `skills` CLI only installs skills):
 ./scripts/setup-opencode.sh --global   # or --project
 ```
 
+Verified with the `skills` CLI: it discovers all 45 skills and installs byte-identical copies to `~/.agents/skills` (OpenCode, Codex) and `~/.claude/skills` (Claude Code).
+
 Alternatives: Claude Code plugin (`/plugin marketplace add lucasvidela94/opencode-pstack`, manifests in `.claude-plugin/`), Codex plugin (`.codex-plugin/` + `plugin.json`). Restart/reload the agent afterwards. If your Codex build doesn't scan `~/.agents/skills`, copy the skills to `~/.codex/skills`.
 
 New here? [`docs/guide/`](docs/guide/) walks through three real tasks with copy-paste prompts.
@@ -70,6 +72,10 @@ Agents fail in predictable ways. This repo answers three of them:
 | [`show-me-your-work`](skills/show-me-your-work/SKILL.md) | long/unattended work needs an auditable decision trail |
 | [`technical-writing`](skills/technical-writing/SKILL.md) | docs, RFCs, PR descriptions, commit messages |
 | [`setup-models`](skills/setup-models/SKILL.md) | map each pstack role to a model your host has (original to this repo) |
+| [`reflect`](skills/reflect/SKILL.md) | mine the run for learnings, route each to a skill edit |
+| [`recall`](skills/recall/SKILL.md) | pull the shared record: past symptoms, reverted fixes, firing errors |
+| [`teach`](skills/teach/SKILL.md) | teach a concept over sessions in a stateful workspace |
+| [`bro`](skills/bro/SKILL.md) | restate the last message in plain human language |
 | [`unslop`](skills/unslop/SKILL.md) | strip AI slop from prose and code |
 | [`no-comments`](skills/no-comments/SKILL.md) | delete comment noise, keep load-bearing whys |
 | [`typescript-best-practices`](skills/typescript-best-practices/SKILL.md) | TS/React rules for this stack |
