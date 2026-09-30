@@ -1,10 +1,12 @@
-# opencode-pstack — poteto-mode for OpenCode, Claude Code & Codex
+# poteto-mode for OpenCode, Claude Code & Codex
 
 [![check](https://github.com/lucasvidela94/opencode-pstack/actions/workflows/check.yml/badge.svg)](https://github.com/lucasvidela94/opencode-pstack/actions/workflows/check.yml)
 ![skills](https://img.shields.io/badge/skills-40-blue.svg)
 ![license](https://img.shields.io/badge/license-MIT-green.svg)
 
-[Lauren Tan](https://github.com/poteto) (poteto) shipped 1,000 PRs in a month by making her agents work the way she does: route every non-trivial task through a playbook, verify against the real thing, keep diffs small. That system is **pstack** — and its router is **poteto-mode**. This repo ports it, faithfully and host-neutrally, to OpenCode, Claude Code, and Codex.
+> Also listed on [skills.sh](https://skills.sh/lucasvidela94/opencode-pstack/poteto-mode) — installs there rank the leaderboard.
+
+A portable port of [Lauren Tan](https://github.com/poteto) (poteto)'s [pstack](https://github.com/cursor/plugins/tree/main/pstack).
 
 > If you want to go fast, go deep first. Rigorous agent workflows you can parallelize with confidence.
 
