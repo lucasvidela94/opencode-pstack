@@ -1,24 +1,31 @@
 # opencode-pstack
 
-Portable adaptation of [Cursor pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan (poteto) for OpenCode. Rigorous, small, verifiable engineering workflows as Agent Skills.
+Host-neutral adaptation of [Cursor pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan (poteto) for **OpenCode, Claude Code, and Codex**. Rigorous, small, verifiable engineering workflows as Agent Skills.
 
-## Install (normal way, via `npx skills`)
+One canonical `skills/` tree (open standard frontmatter: `name` + `description` only). Skills speak capability verbs; each host resolves them through an adapter in `skills/poteto-mode/references/hosts/`.
+
+## Install (via `npx skills`)
 
 ```bash
-# global
+# OpenCode (global)
 npx -y skills@latest add <tu-usuario>/opencode-pstack --skill '*' --agent opencode --global --yes
-
-# or project-local
-npx -y skills@latest add <tu-usuario>/opencode-pstack --skill '*' --agent opencode --yes
+# Claude Code
+npx -y skills@latest add <tu-usuario>/opencode-pstack --skill '*' --agent claude-code --global --yes
+# Codex
+npx -y skills@latest add <tu-usuario>/opencode-pstack --skill '*' --agent codex --global --yes
 ```
 
-Then install the OpenCode agents/commands (the `skills` CLI only installs skills):
+Verified with the `skills` CLI: it discovers all 35 skills and installs byte-identical copies to `~/.agents/skills` (OpenCode, Codex) and `~/.claude/skills` (Claude Code). If your Codex build doesn't pick up `~/.agents/skills`, copy the skills to `~/.codex/skills` (`$CODEX_HOME/skills`), which Codex always scans.
+
+OpenCode also needs its agents/commands (the `skills` CLI only installs skills):
 
 ```bash
 ./scripts/setup-opencode.sh --global   # or --project
 ```
 
-Restart/reload OpenCode so it rescans skills.
+Claude Code plugin alternative: `/plugin marketplace add <tu-usuario>/opencode-pstack`, then install from the marketplace (see `.claude-plugin/`). Codex plugin alternative: manifests in `.codex-plugin/` + `plugin.json`.
+
+Restart/reload the agent so it rescans skills.
 
 ## Use
 
@@ -28,43 +35,30 @@ Ask for the router skill by name for non-trivial work:
 Use the poteto-mode skill. <goal + how you will check it>
 ```
 
-Casual turns: just talk normally, no skill needed (see `AGENTS.md`).
+(`$poteto-mode` on Codex, `/poteto-mode` on Claude Code.) Casual turns: just talk normally, no skill needed (see `AGENTS.md` / `CLAUDE.md`).
 
 ## What is included
 
-Core only (on purpose). `arena`/`swarm` (token-heavy panels) come later.
+35 skills: `poteto-mode`, `how`, `why`, `architect`, `arena`, `swarm`, `tdd`, `interrogate`, `blast-radius`, `unslop`, `no-comments`, `typescript-best-practices` + the 23 upstream `principle-*` leaf skills (kept as skills: the router names them, the agent reads the leaf `SKILL.md` before applying one).
 
-| Skill | Use when |
-| --- | --- |
-| `poteto-mode` | router: non-trivial coding, investigation, review, migration, verification |
-| `how` | explain how part of the system works |
-| `why` | evidence for why it was built that way |
-| `architect` | design must be settled before code (runs **arena** in Phase B) |
-| `arena` | N parallel candidates, pick a base, graft strengths, verify |
-| `swarm` | parallel fan-out: coverage matrices, races, verification lanes |
-| `tdd` | bug fix / feature with repro-first discipline |
-| `interrogate` | adversarial review of a design or diff |
-| `blast-radius` | what could this change break beyond the diff |
-| `unslop` | de-slop prose/code, say less |
-| `no-comments` | remove comment noise, keep only load-bearing ones |
-| `typescript-best-practices` | TS/React rules for this stack |
-
-Principles are the 23 upstream `principle-*` leaf skills, kept as skills (like upstream): `poteto-mode` names them, the agent reads the leaf `SKILL.md` in full before applying one. Host mapping lives in one file: `skills/poteto-mode/references/opencode-tools.md`. Deviations from upstream are logged in `PORT-NOTES.md`.
+23 playbooks under `skills/poteto-mode/playbooks/`. Agents `poteto-agent` + `comment-sicko` (OpenCode: `.opencode/agents/`; other hosts: resolve via the host adapter).
 
 ## Layout
 
 ```text
-skills/<name>/SKILL.md        # canonical source, npx-installable (35: 12 workflow + 23 principle-*)
-skills/poteto-mode/playbooks/ # 23 playbooks, copied verbatim from the matched router step
-skills/poteto-mode/references/# opencode-tools.md, substitution-table.md, bugbot-triage.md
-.opencode/agents/             # poteto-agent, comment-sicko (mode: subagent)
-.opencode/commands/           # /poteto-mode
+skills/<name>/SKILL.md        # canonical, host-neutral, npx-installable
+skills/poteto-mode/playbooks/ # 23 playbooks
+skills/poteto-mode/references/# substitution-table.md, bugbot-triage.md, hosts/
+skills/poteto-mode/references/hosts/  # _contract.md, opencode.md, claude-code.md, codex.md
+.opencode/agents|commands/    # OpenCode host package
+.claude-plugin/               # Claude Code plugin + marketplace manifests
+.codex-plugin/plugin.json     # Codex compat manifest (+ portable plugin.json)
 scripts/                      # adapt-upstream.py, check.sh, setup-opencode.sh
 ```
 
 ## Sync upstream
 
-`UPSTREAM_COMMIT` pins the reviewed `cursor/plugins` revision. Procedure in `UPSTREAM_SYNC.md`. After any sync: `./scripts/sync-check` = `bash scripts/check.sh`.
+`UPSTREAM_COMMIT` pins the reviewed `cursor/plugins` revision. Re-run `python3 scripts/adapt-upstream.py`, review the diff, run the gate. Policy in `UPSTREAM_SYNC.md`, deviations in `PORT-NOTES.md`.
 
 ## Verify
 
@@ -72,8 +66,8 @@ scripts/                      # adapt-upstream.py, check.sh, setup-opencode.sh
 bash scripts/check.sh
 ```
 
-Gate: frontmatter (`name` == directory, non-empty `description`), relative links resolve, no Cursor-only tokens, agents/commands shape.
+Gate: frontmatter (`name` == directory, `description` present, no host-specific keys), relative links resolve, no usable Cursor-only tokens, manifests are valid JSON.
 
 ## License
 
-MIT. Original pstack work by Lauren Tan; see `LICENSE` and `UPSTREAM_SYNC.md` for attribution.
+MIT. Original pstack work by Lauren Tan; see `LICENSE` and `PORT-NOTES.md` for attribution.

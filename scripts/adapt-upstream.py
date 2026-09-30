@@ -26,19 +26,19 @@ DROP_FRONTMATTER_KEYS = {
 }
 
 HEADER = (
-    "> Adapted from `cursor/plugins` pstack@{commit} for OpenCode. "
-    "Mechanical translations only, no content invented; see `PORT-NOTES.md`.\n\n"
+    "> Adapted from `cursor/plugins` pstack@{commit}. Neutral host wording; "
+    "no content invented. Resolve capability verbs via "
+    "`skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.\n\n"
 ).format(commit=COMMIT[:12])
 
 # Playbooks/skills that lean on Cursor-only runtime get an extra limits note.
 LIMITS_NOTE = (
-    "> OpenCode limits for this file: no Cursor transcript store "
-    "(`agent-transcripts/`, `~/.cursor/projects/`), no Cursor cloud agents "
-    "(use OpenCode `background: true` subagents on this machine), no "
-    "`cursor-team-kit` skills (`deslop`, `control-ui`, `control-cli` — use "
-    "native `read`/`edit`/`shell`/browser instead), no `orch` CLI (keep a "
-    "plain `ledger.tsv` via `shell`). `gh` is the forge CLI; Graphite (`gt`) "
-    "is never required.\n\n"
+    "> Host limits for this file: it assumes Cursor transcripts "
+    "(`agent-transcripts/`, `~/.cursor/projects/`), Cursor cloud agents, "
+    "`cursor-team-kit` skills (`deslop`, `control-ui`, `control-cli`), or the "
+    "`orch` CLI. Resolve each through the host adapter "
+    "(`skills/poteto-mode/references/hosts/`); fallbacks in `hosts/_contract.md`. "
+    "`gh` is the forge CLI; Graphite (`gt`) is never required.\n\n"
 )
 LIMITS_FILES = {
     "skills/poteto-mode/playbooks/session-pickup.md",
@@ -56,29 +56,31 @@ LIMITS_FILES = {
     "skills/swarm/SKILL.md",
 }
 
+HOSTS = "skills/poteto-mode/references/hosts/"
+
 BODY_RULES = [
     # About to `AskQuestion` on a ... fork -> About to ask the user ...
-    (re.compile(r"About to `AskQuestion`"), "About to ask the user (the `question` tool)"),
-    (re.compile(r"`?subagent_type:\s*\"([^\"]+)\"`?"), r"`subagent \1 (OpenCode subagent tool)`"),
-    (re.compile(r"`subagent_type: generalPurpose`"), "`subagent general (OpenCode subagent tool)`"),
-    (re.compile(r"`subagent_type`:\s*`generalPurpose`"), "`subagent general (OpenCode subagent tool)`"),
-    (re.compile(r"`subagent_type`"), "`subagent`"),
-    (re.compile(r"Substituting `generalPurpose`"), "Substituting the `general` subagent"),
-    (re.compile(r"`Task`"), "`subagent`"),
+    (re.compile(r"About to `AskQuestion`"), f"About to ask the user (see `{HOSTS}`)"),
+    (re.compile(r"`?subagent_type:\s*\"([^\"]+)\"`?"), rf"spawn a `\1` subagent (see `{HOSTS}`)"),
+    (re.compile(r"`subagent_type: generalPurpose`"), f"spawn a general-purpose subagent (see `{HOSTS}`)"),
+    (re.compile(r"`subagent_type`:\s*`generalPurpose`"), f"spawn a general-purpose subagent (see `{HOSTS}`)"),
+    (re.compile(r"`subagent_type`"), "subagent mechanism"),
+    (re.compile(r"`Task`"), "subagent"),
     (re.compile(r"\bTask subagent\b"), "subagent"),
-    (re.compile(r"AskUserQuestion"), "`question`"),
-    (re.compile(r"AskQuestion"), "`question`"),
-    (re.compile(r"`run_in_background:\s*true`"), "`background: true`"),
-    (re.compile(r"run_in_background:\s*true"), "background: `true`"),
-    (re.compile(r"`readonly`:\s*`true`"), "`permissions`: read-only (deny `edit` and `shell`)"),
-    (re.compile(r"`readonly`:\s*`false`"), "`permissions`: full tool access"),
-    (re.compile(r"`/setup-pstack`"), "`model configuration` (references/opencode-tools.md)"),
-    (re.compile(r"/setup-pstack"), "model configuration (references/opencode-tools.md)"),
-    (re.compile(r"`~/.cursor/rules/pstack-models\.mdc`"), "`model configuration` (references/opencode-tools.md)"),
-    (re.compile(r"pstack-models\.mdc"), "model configuration (references/opencode-tools.md)"),
-    (re.compile(r"Task tool"), "`subagent` tool"),
-    (re.compile(r"Task schema"), "`subagent` schema"),
+    (re.compile(r"AskUserQuestion"), "ask the user"),
+    (re.compile(r"AskQuestion"), "ask the user"),
+    (re.compile(r"`run_in_background:\s*true`"), "in the background"),
+    (re.compile(r"run_in_background:\s*true"), "in the background"),
+    (re.compile(r"`readonly`:\s*`true`"), "read-only"),
+    (re.compile(r"`readonly`:\s*`false`"), "with full tools"),
+    (re.compile(r"`/setup-pstack`"), f"`role-model configuration` (see `{HOSTS}`)"),
+    (re.compile(r"/setup-pstack"), f"role-model configuration (see `{HOSTS}`)"),
+    (re.compile(r"`~/.cursor/rules/pstack-models\.mdc`"), f"`role-model configuration` (see `{HOSTS}`)"),
+    (re.compile(r"pstack-models\.mdc"), f"role-model configuration (see `{HOSTS}`)"),
+    (re.compile(r"Task tool"), f"subagent mechanism (see `{HOSTS}`)"),
+    (re.compile(r"Task schema"), f"subagent call format (see `{HOSTS}`)"),
     (re.compile(r"<Task as a verb phrase>"), "<subagent as a verb phrase>"),
+    (re.compile(r"Substituting `generalPurpose`"), "Substituting another general-purpose subagent"),
 ]
 
 
@@ -110,7 +112,7 @@ def adapt_frontmatter(fm, rel):
             line = "mode: subagent"
             has_mode = True
         line = line.replace("Substituting `generalPurpose`",
-                            "Substituting the `general` subagent")
+                            "Substituting another general-purpose subagent")
         out.append(line)
     text = "\n".join(out)
     if rel.parts[0] == ".opencode" and not has_mode:
@@ -148,10 +150,15 @@ def main():
 
     # our own host-mapping files live inside poteto-mode/references: preserve them
     keep = {}
-    for ours in ["references/opencode-tools.md", "references/substitution-table.md"]:
+    for ours in ["references/substitution-table.md"]:
         p = ROOT / "skills" / "poteto-mode" / ours
         if p.exists():
             keep[ours] = p.read_text()
+    hosts_dir = ROOT / "skills" / "poteto-mode" / "references" / "hosts"
+    hosts_keep = {}
+    if hosts_dir.exists():
+        for f in sorted(hosts_dir.glob("*.md")):
+            hosts_keep[f.name] = f.read_text()
 
     # clean previously generated skill trees (keep our own references/*.md)
     for name in skill_dirs:
@@ -189,6 +196,11 @@ def main():
         p = ROOT / "skills" / "poteto-mode" / ours
         if not p.exists():
             p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(text)
+    for name, text in hosts_keep.items():
+        p = hosts_dir / name
+        if not p.exists():
+            hosts_dir.mkdir(parents=True, exist_ok=True)
             p.write_text(text)
 
     # agents

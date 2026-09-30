@@ -3,7 +3,7 @@ name: principle-experience-first
 description: "Apply when product, UX, or feature-scope tradeoffs come up. Choose user delight over implementation convenience; ship fewer polished features over more rough ones."
 ---
 
-> Adapted from `cursor/plugins` pstack@fae2c6ed9582 for OpenCode. Mechanical translations only, no content invented; see `PORT-NOTES.md`.
+> Adapted from `cursor/plugins` pstack@fae2c6ed9582. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
 
 # Experience First
 

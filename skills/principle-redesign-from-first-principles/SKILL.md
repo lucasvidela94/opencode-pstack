@@ -3,7 +3,7 @@ name: principle-redesign-from-first-principles
 description: "Apply when integrating a new requirement into an existing design. Redesign as if the requirement had been a foundational assumption from day one, instead of bolting it on."
 ---
 
-> Adapted from `cursor/plugins` pstack@fae2c6ed9582 for OpenCode. Mechanical translations only, no content invented; see `PORT-NOTES.md`.
+> Adapted from `cursor/plugins` pstack@fae2c6ed9582. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
 
 # Redesign From First Principles
 

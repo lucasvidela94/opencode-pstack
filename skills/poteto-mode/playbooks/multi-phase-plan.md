@@ -1,6 +1,6 @@
-> Adapted from `cursor/plugins` pstack@fae2c6ed9582 for OpenCode. Mechanical translations only, no content invented; see `PORT-NOTES.md`.
+> Adapted from `cursor/plugins` pstack@fae2c6ed9582. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
 
-> OpenCode limits for this file: no Cursor transcript store (`agent-transcripts/`, `~/.cursor/projects/`), no Cursor cloud agents (use OpenCode `background: true` subagents on this machine), no `cursor-team-kit` skills (`deslop`, `control-ui`, `control-cli` — use native `read`/`edit`/`shell`/browser instead), no `orch` CLI (keep a plain `ledger.tsv` via `shell`). `gh` is the forge CLI; Graphite (`gt`) is never required.
+> Host limits for this file: it assumes Cursor transcripts (`agent-transcripts/`, `~/.cursor/projects/`), Cursor cloud agents, `cursor-team-kit` skills (`deslop`, `control-ui`, `control-cli`), or the `orch` CLI. Resolve each through the host adapter (`skills/poteto-mode/references/hosts/`); fallbacks in `hosts/_contract.md`. `gh` is the forge CLI; Graphite (`gt`) is never required.
 
 ### Multi-phase or multi-PR plan
 
@@ -8,7 +8,7 @@
 
 1. When the change is one or two files with an obvious approach, skip the plan. Say so and stop.
 2. Settle open questions by prototype before you write. Run `playbooks/prototype.md` for each. Keep the branch, the SHA, and the screenshots for Appendix A. Ask the operator only about a product or preference call that no run can settle. Give options (the **never-block-on-the-human** principle skill).
-3. Explore in subagents with `subagent poteto-agent (OpenCode subagent tool)` and an explicit model per the Subagents section (the **guard-the-context-window** principle skill). Each returns file pointers, conventions, test commands, and entry points. No inlined dumps.
+3. Explore in subagents with spawn a `poteto-agent` subagent (see `skills/poteto-mode/references/hosts/`) and an explicit model per the Subagents section (the **guard-the-context-window** principle skill). Each returns file pointers, conventions, test commands, and entry points. No inlined dumps.
 4. Copy the skeleton below into the plan file and fill every placeholder. Unless the operator names a path, write the file under the agent store's `docs/`. Keep every heading and every sub-block in the order shown. One section per PR. One PR is one change with its own evidence (the **sequence-verifiable-units** principle skill). Name the execution playbook in **How to read this**. Pick between `playbooks/autopilot-full.md` and `playbooks/autopilot-stack.md` per the rule at the end of `playbooks/autopilot-stack.md`. A standing program takes `playbooks/orchestrate.md`.
 5. Write under `/technical-writing` in full, then `/unslop`. The body is one Diátaxis mode, how-to. Appendices hold explanation and reference. Each heading states the task or the finding. No long dashes. No mid-sentence colons.
 6. Run `node pstack/skills/poteto-mode/scripts/check-plan.mjs <plan.md>` and fix every line it prints (the **encode-lessons-in-structure** principle skill).

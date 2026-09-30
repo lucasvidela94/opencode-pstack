@@ -2,19 +2,19 @@
 
 Checklist for every ported file (applied by `scripts/adapt-upstream.py`). Translate, don't copy.
 
-| Upstream (Cursor) | OpenCode |
+| Upstream (Cursor) | This repo (neutral verb → host adapter) |
 | --- | --- |
-| `Task` tool / `subagent_type:` | `subagent` tool + agent ID in `.opencode/agents/*.md` (`mode: subagent`) |
-| `AskQuestion` / `AskUserQuestion` | `question` tool |
-| `generalPurpose` subagent | `general` builtin subagent (read-only variants: `explore`) |
-| `readonly: true/false` (Task param) | agent `permissions` (deny vs allow `edit`/`shell`) |
-| `run_in_background: true` | `background: true` |
-| transcript paths, cloud agents, background-task API | drop; use sessions (foreground or `background: true` subagents). Two transcript passages kept verbatim + allowlisted (see `PORT-NOTES.md`) |
-| model slugs (`claude-*`, `gpt-*`, `grok-*`) + `/setup-pstack` + `pstack-models.mdc` | `provider/model#variant` per agent/command or root `model`; roles configured in OpenCode config |
-| `SessionStart` hook forcing poteto-mode | routing line in `AGENTS.md`, no auto-hook |
-| `disable-model-invocation: true` | dropped; hide with `slash: false` + `metadata.opencode/autoinvoke: false` when needed |
-| `is_background` flag | `mode: subagent` + `background: true` at call time |
-| `.cursor-plugin/`, Cursor manifests/commands | `skills/<name>/SKILL.md` (canonical) + `.opencode/agents/`, `.opencode/commands/` |
+| `Task` tool / `subagent_type:` | spawn a subagent (see `skills/poteto-mode/references/hosts/`) |
+| `AskQuestion` / `AskUserQuestion` | ask the user (see hosts) |
+| `generalPurpose` subagent | a general-purpose subagent (see hosts) |
+| `readonly: true/false` (Task param) | read-only / with full tools (see hosts) |
+| `run_in_background: true` | in the background (see hosts) |
+| transcript paths, cloud agents, background-task API | per-file host-limits note + `hosts/_contract.md` fallbacks. Two transcript passages kept verbatim + allowlisted (see below) |
+| model slugs + `/setup-pstack` + `pstack-models.mdc` | role-model configuration (see hosts); OpenCode: `provider/model#variant` per agent/command; Claude Code: `model`/`effort` + agent config; Codex: advisory, via Codex config |
+| `SessionStart` hook forcing poteto-mode | routing line in `AGENTS.md` / `CLAUDE.md`, no auto-hook |
+| `disable-model-invocation: true` | dropped from canonical frontmatter (host-specific; each host resolves hiding via its adapter) |
+| `is_background` flag | dropped; background-ness is a call-time host concern |
+| `.cursor-plugin/`, Cursor manifests/commands | `skills/<name>/SKILL.md` (canonical) + host packages (`.opencode/`, `.claude-plugin/`, `.codex-plugin/`) |
 | `tools/upstream.json` pin | `UPSTREAM_COMMIT` + `UPSTREAM_SYNC.md` + `scripts/adapt-upstream.py` |
 
-Forbidden-as-usable tokens in this repo (checked in CI): `subagent_type`, `AskUserQuestion`, `disable-model-invocation`, `.cursor-plugin`, `is_background`, `/setup-pstack`, `pstack-models.mdc`, `` `Task` ``, `generalPurpose`. Port-note blockquotes may name them to disclaim them.
+Forbidden-as-usable tokens in canonical skill bodies (checked in CI): `subagent_type`, `AskUserQuestion`, `disable-model-invocation`, `.cursor-plugin`, `is_background`, `/setup-pstack`, `pstack-models.mdc`, `` `Task` ``, `generalPurpose`, `user-invocable`, `context: fork`. Mapping docs (`hosts/`, this table) name them by design and are exempt.

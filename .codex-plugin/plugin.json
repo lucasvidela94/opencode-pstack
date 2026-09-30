@@ -1,0 +1,14 @@
+{
+  "name": "opencode-pstack",
+  "version": "0.1.0",
+  "description": "poteto's engineering skills, host-neutral for OpenCode, Claude Code and Codex",
+  "license": "MIT",
+  "keywords": ["ai", "skills", "engineering", "pstack", "poteto"],
+  "skills": "./skills",
+  "interface": {
+    "displayName": "opencode-pstack",
+    "shortDescription": "Rigorous engineering skills, host-neutral",
+    "category": "Developer Tools",
+    "capabilities": ["Skills"]
+  }
+}

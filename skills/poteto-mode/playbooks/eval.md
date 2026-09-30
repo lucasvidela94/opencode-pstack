@@ -1,6 +1,6 @@
-> Adapted from `cursor/plugins` pstack@fae2c6ed9582 for OpenCode. Mechanical translations only, no content invented; see `PORT-NOTES.md`.
+> Adapted from `cursor/plugins` pstack@fae2c6ed9582. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
 
-> OpenCode limits for this file: no Cursor transcript store (`agent-transcripts/`, `~/.cursor/projects/`), no Cursor cloud agents (use OpenCode `background: true` subagents on this machine), no `cursor-team-kit` skills (`deslop`, `control-ui`, `control-cli` — use native `read`/`edit`/`shell`/browser instead), no `orch` CLI (keep a plain `ledger.tsv` via `shell`). `gh` is the forge CLI; Graphite (`gt`) is never required.
+> Host limits for this file: it assumes Cursor transcripts (`agent-transcripts/`, `~/.cursor/projects/`), Cursor cloud agents, `cursor-team-kit` skills (`deslop`, `control-ui`, `control-cli`), or the `orch` CLI. Resolve each through the host adapter (`skills/poteto-mode/references/hosts/`); fallbacks in `hosts/_contract.md`. `gh` is the forge CLI; Graphite (`gt`) is never required.
 
 ### Eval
 

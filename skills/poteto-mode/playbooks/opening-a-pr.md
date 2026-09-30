@@ -1,12 +1,12 @@
-> Adapted from `cursor/plugins` pstack@fae2c6ed9582 for OpenCode. Mechanical translations only, no content invented; see `PORT-NOTES.md`.
+> Adapted from `cursor/plugins` pstack@fae2c6ed9582. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
 
-> OpenCode limits for this file: no Cursor transcript store (`agent-transcripts/`, `~/.cursor/projects/`), no Cursor cloud agents (use OpenCode `background: true` subagents on this machine), no `cursor-team-kit` skills (`deslop`, `control-ui`, `control-cli` — use native `read`/`edit`/`shell`/browser instead), no `orch` CLI (keep a plain `ledger.tsv` via `shell`). `gh` is the forge CLI; Graphite (`gt`) is never required.
+> Host limits for this file: it assumes Cursor transcripts (`agent-transcripts/`, `~/.cursor/projects/`), Cursor cloud agents, `cursor-team-kit` skills (`deslop`, `control-ui`, `control-cli`), or the `orch` CLI. Resolve each through the host adapter (`skills/poteto-mode/references/hosts/`); fallbacks in `hosts/_contract.md`. `gh` is the forge CLI; Graphite (`gt`) is never required.
 
 ### Opening a PR
 
 Invoked at the end of every other playbook.
 
-**Worktree.** Work from a git worktree off main. Subagents inherit it. Multiple `subagent` calls on the same branch each get their own worktree, or `git fetch && git reset --hard origin/<branch>` between them. Dirty branch with unrelated work: patch out, fresh worktree, apply. Snarled worktree: reset from main, redo minimally.
+**Worktree.** Work from a git worktree off main. Subagents inherit it. Multiple subagent calls on the same branch each get their own worktree, or `git fetch && git reset --hard origin/<branch>` between them. Dirty branch with unrelated work: patch out, fresh worktree, apply. Snarled worktree: reset from main, redo minimally.
 
 **Commits.** Commit liberally. Rebase into small, ordered commits before opening PRs. Each commit is a future PR: landable, ordered to tell the story. Amend when the fix belongs in a just-made commit. New commit when separable.
 

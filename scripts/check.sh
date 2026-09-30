@@ -29,12 +29,12 @@ while IFS= read -r f; do
 done < <(find "$ROOT/skills" -name '*.md')
 
 # Cursor-only tokens: blockquote port-notes may name them to disclaim them;
-# our own host-mapping docs (opencode-tools, substitution-table) name them by design;
+# mapping docs (hosts/, substitution-table) name them by design;
 # two upstream-verbatim transcript passages are allowlisted (see PORT-NOTES.md).
-grep -rnE 'subagent_type|AskUserQuestion|disable-model-invocation|\.cursor-plugin|is_background|/setup-pstack|generalPurpose|`Task`|Task subagent|`readonly`|pstack-models|Task tool|Task schema|~/.cursor|<Task' \
-  "$ROOT/skills" "$ROOT/.opencode" 2>/dev/null \
+grep -rnE 'subagent_type|AskUserQuestion|disable-model-invocation|\.cursor-plugin|is_background|/setup-pstack|generalPurpose|`Task`|Task subagent|`readonly`|pstack-models|Task tool|Task schema|~/.cursor|<Task|user-invocable|context: fork' \
+  "$ROOT/skills" "$ROOT/.opencode" "$ROOT/.claude-plugin" "$ROOT/.codex-plugin" 2>/dev/null \
   | grep -v '^[^:]*:[0-9]*:>' \
-  | grep -v 'poteto-mode/references/opencode-tools.md' \
+  | grep -v 'poteto-mode/references/hosts/' \
   | grep -v 'poteto-mode/references/substitution-table.md' \
   | grep -v 'playbooks/eval.md:.*agent-transcripts' \
   | grep -v 'playbooks/session-pickup.md:.*agent-transcripts' \
@@ -43,6 +43,18 @@ grep -rnE 'subagent_type|AskUserQuestion|disable-model-invocation|\.cursor-plugi
 # agents shape
 for a in "$ROOT"/.opencode/agents/*.md; do
   grep -qE '^mode:' "$a" || fail "agent ${a#$ROOT/} missing mode:"
+done
+
+# canonical frontmatter stays host-neutral (open standard only: name + description)
+while IFS= read -r f; do
+  if sed -n '/^---$/,/^---$/p' "$f" | head -20 | grep -qE '^(user-invocable|disable-model-invocation|context|allowed-tools|disallowed-tools|effort|argument-hint|arguments|model):'; then
+    fail "host-specific frontmatter in ${f#$ROOT/}"
+  fi
+done < <(find "$ROOT/skills" -name 'SKILL.md')
+
+# manifests are valid JSON
+for m in "$ROOT"/.claude-plugin/plugin.json "$ROOT"/.claude-plugin/marketplace.json "$ROOT"/.codex-plugin/plugin.json; do
+  python3 -m json.tool "$m" >/dev/null 2>&1 || fail "invalid JSON: ${m#$ROOT/}"
 done
 
 if [ -s "$FAIL_FILE" ]; then

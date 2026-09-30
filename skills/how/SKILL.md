@@ -3,13 +3,13 @@ name: how
 description: "Use for \"how does X work\", code walkthroughs before changing something, and placement / ownership / layering questions (\"where should this live\", \"which package owns this\", \"is this the right layer\"). Explains subsystem architecture, runtime flow, onboarding mental models. Use why for motivation."
 ---
 
-> Adapted from `cursor/plugins` pstack@fae2c6ed9582 for OpenCode. Mechanical translations only, no content invented; see `PORT-NOTES.md`.
+> Adapted from `cursor/plugins` pstack@fae2c6ed9582. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
 
 # How
 
 Explore the codebase to answer "how does X work?" questions. Produce architectural explanations at the level of a senior engineer onboarding onto a subsystem, enough to build a working mental model, not so much that it reads like annotated source code.
 
-Each spawn below names a role line in the `model configuration (references/opencode-tools.md)` rule and a default. Set `model` to that line's value, or to the default if the rule or the line is missing. Leave `model` unset when the value is `auto` or `inherit-parent`. If the `subagent` tool rejects a slug, use the default and say so. If it rejects the default, use the closest valid slug of the same family from its error message.
+Each spawn below names a role line in the `role-model configuration (see `skills/poteto-mode/references/hosts/`)` rule and a default. Set `model` to that line's value, or to the default if the rule or the line is missing. Leave `model` unset when the value is `auto` or `inherit-parent`. If the subagent mechanism (see `skills/poteto-mode/references/hosts/`) rejects a slug, use the default and say so. If it rejects the default, use the closest valid slug of the same family from its error message.
 
 ## Step 1. Assess Complexity
 
@@ -24,9 +24,9 @@ When in doubt, take the simple path.
 
 Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. Spawn all explorers in a single message:
 
-- `subagent general (OpenCode subagent tool)`
+- spawn a general-purpose subagent (see `skills/poteto-mode/references/hosts/`)
 - `model`: the `how explorer` line, default `grok-4.7-xhigh-fast`
-- `permissions`: read-only (deny `edit` and `shell`)
+- read-only
 
 Each explorer gets the prompt in `references/explorer-prompt.md` with its angle filled in. Then go to Step 3.
 
@@ -34,9 +34,9 @@ Each explorer gets the prompt in `references/explorer-prompt.md` with its angle 
 
 Spawn one subagent that explores and explains in one pass:
 
-- `subagent general (OpenCode subagent tool)`
+- spawn a general-purpose subagent (see `skills/poteto-mode/references/hosts/`)
 - `model`: the `how explainer` line, default `claude-opus-5-5-max`
-- `permissions`: read-only (deny `edit` and `shell`)
+- read-only
 
 Build its prompt from `references/explainer-prompt.md` without the explorer-findings section. Go to Step 4.
 
@@ -44,9 +44,9 @@ Build its prompt from `references/explainer-prompt.md` without the explorer-find
 
 Once all explorers have returned, spawn one subagent to synthesize their findings into one explanation:
 
-- `subagent general (OpenCode subagent tool)`
+- spawn a general-purpose subagent (see `skills/poteto-mode/references/hosts/`)
 - `model`: the `how explainer` line, default `claude-opus-5-5-max`
-- `permissions`: read-only (deny `edit` and `shell`)
+- read-only
 
 Build its prompt from `references/explainer-prompt.md` with every explorer's findings filled in.
 

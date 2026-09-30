@@ -1,11 +1,17 @@
 # PORT-NOTES
 
-How this repo relates to upstream, and every deliberate deviation. Nothing here is invented: bodies are upstream's, translated mechanically by `scripts/adapt-upstream.py` (re-runnable).
+How this repo relates to upstream, and every deliberate deviation. Nothing here is invented: skill bodies are upstream's, translated mechanically by `scripts/adapt-upstream.py` (re-runnable). Host mappings cite official docs only (OpenCode V2 docs; Claude Code `skills` docs; Codex `skills`/plugin docs).
 
 - Upstream: `cursor/plugins`, path `pstack/`, pinned in `UPSTREAM_COMMIT` (`fae2c6ed9582`). Upstream has 47 skills.
-- Ported (35 skills): `poteto-mode`, `how`, `why`, `architect`, `arena`, `swarm`, `tdd`, `interrogate`, `blast-radius`, `unslop`, `no-comments`, `typescript-best-practices` + all 23 `principle-*` leaf skills (kept as skills, like upstream and both OpenCode forks — `poteto-mode` says to navigate to the leaf skill when applying a principle).
+- Ported (35 skills): `poteto-mode`, `how`, `why`, `architect`, `arena`, `swarm`, `tdd`, `interrogate`, `blast-radius`, `unslop`, `no-comments`, `typescript-best-practices` + all 23 `principle-*` leaf skills (kept as skills, like upstream).
 - Ported alongside: all 23 `poteto-mode` playbooks, `poteto-mode/references/bugbot-triage.md`, per-skill `references/` trees, agents `poteto-agent` + `comment-sicko`.
-- `arena` + `swarm` are included (not deferred): `architect` Phase B runs the **arena** skill, and `poteto-mode`/autopilot fan-out routes through **swarm**. Without them the router would cite skills that don't exist.
+- `arena` + `swarm` are included (not deferred): `architect` Phase B runs the **arena** skill, and `poteto-mode`/autopilot fan-out routes through **swarm**.
+
+## Host-neutral design
+
+- Canonical frontmatter is open-standard only: `name` (== directory id) + `description`. No `user-invocable`, `disable-model-invocation`, `context`, `allowed-tools`, or other host keys (CI enforced).
+- Bodies use capability verbs (`spawn a … subagent`, `ask the user`, `role-model configuration`) resolved via `skills/poteto-mode/references/hosts/` (`_contract.md` + one adapter per host). The contract also defines fallbacks: no subagents → lead runs inline and says so; no per-role models → one session model, panels give independent passes, not diversity.
+- Known adapter gaps (stated in the adapters, not papered over): Codex docs name no subagent/user-prompt tool → native mechanism or inline fallback; Codex role-model control is advisory via Codex config; `poteto-mode/scripts/` omitted (Cursor-oriented).
 
 ## Mechanical translations (`BODY_RULES` in the script)
 

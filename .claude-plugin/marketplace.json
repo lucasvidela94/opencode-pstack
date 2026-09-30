@@ -1,0 +1,18 @@
+{
+  "name": "opencode-pstack",
+  "description": "poteto's engineering skills, host-neutral for OpenCode, Claude Code and Codex",
+  "owner": {
+    "name": "TODO"
+  },
+  "plugins": [
+    {
+      "name": "opencode-pstack",
+      "source": "./",
+      "description": "poteto's engineering skills, host-neutral for OpenCode, Claude Code and Codex",
+      "version": "0.1.0",
+      "license": "MIT",
+      "keywords": ["ai", "skills", "engineering", "pstack", "poteto"],
+      "skills": "./skills"
+    }
+  ]
+}
