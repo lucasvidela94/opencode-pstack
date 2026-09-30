@@ -82,6 +82,10 @@ Agents fail in predictable ways. This repo answers three of them:
 
 **Principles:** the 23 upstream `principle-*` leaf skills (prove it works, subtract before you add, laziness protocol, …). The agent names each principle that shaped a decision — and cites only the ones it actually read that session.
 
+## What this never does
+
+No binaries, no telemetry, no auto-hooks, no review gates on by default, no config replaces. Installing adds skill files (backing up anything it would overwrite); uninstalling is deleting those files. `scripts/doctor.sh` reports install health and changes nothing. Per-host behavior: [`docs/hosts.md`](docs/hosts.md).
+
 ## How the port works
 
 One canonical `skills/` tree with open-standard frontmatter (`name` + `description` only). Skill bodies speak capability verbs — *spawn a subagent*, *ask the user*, *role model* — resolved per host through adapters in `skills/poteto-mode/references/hosts/` (`_contract.md` plus one page each for OpenCode, Claude Code, Codex, with honest fallbacks where a host lacks the capability).

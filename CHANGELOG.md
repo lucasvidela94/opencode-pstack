@@ -4,6 +4,9 @@ Brief, per shipped change. Upstream content versions live in `UPSTREAM_COMMIT`.
 
 ## Unreleased
 
+- `scripts/setup-opencode.sh` backs up replaced files instead of overwriting.
+- `scripts/doctor.sh`: read-only install health report.
+- `docs/hosts.md`: capability matrix per host.
 - `reflect`, `recall`, `teach`, `bro`: router now cites only ported skills.
 - `<host-skills>` / `<host-session-store>` conventions for Cursor path schemes.
 - `setup-models`: original skill mapping pstack roles to host models.
