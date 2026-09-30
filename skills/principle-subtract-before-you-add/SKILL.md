@@ -3,7 +3,7 @@ name: principle-subtract-before-you-add
 description: "Apply when sequencing an addition, refactor, or rewrite. Remove dead code, redundant validators, and stub references first, then build on the simpler base."
 ---
 
-> Adapted from `cursor/plugins` pstack@fae2c6ed9582. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
+> Adapted from `cursor/plugins` pstack@2eb7ed4613cf. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
 
 # Subtract Before You Add
 

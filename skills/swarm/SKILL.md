@@ -3,7 +3,7 @@ name: swarm
 description: "Fan out N parallel workers, drain them, and return one report. Use for /swarm, 'swarm this', or parallel coverage, races, gauntlets, and exploration."
 ---
 
-> Adapted from `cursor/plugins` pstack@fae2c6ed9582. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
+> Adapted from `cursor/plugins` pstack@2eb7ed4613cf. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
 
 > Host limits for this file: it assumes Cursor transcripts (`agent-transcripts/`, `~/.cursor/projects/`), Cursor cloud agents, `cursor-team-kit` skills (`deslop`, `control-ui`, `control-cli`), or the `orch` CLI. Resolve each through the host adapter (`skills/poteto-mode/references/hosts/`); fallbacks in `hosts/_contract.md`. `gh` is the forge CLI; Graphite (`gt`) is never required.
 

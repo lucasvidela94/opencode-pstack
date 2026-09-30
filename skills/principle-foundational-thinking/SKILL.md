@@ -3,7 +3,7 @@ name: principle-foundational-thinking
 description: "Apply before writing logic: choosing core types and data structures, sequencing scaffold-vs-feature work, asking what concurrent actors share. Get the data structures right so downstream code becomes obvious."
 ---
 
-> Adapted from `cursor/plugins` pstack@fae2c6ed9582. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
+> Adapted from `cursor/plugins` pstack@2eb7ed4613cf. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
 
 # Foundational Thinking
 

@@ -3,7 +3,7 @@ name: create-verification-skill
 description: "Generate a project-local verification skill that drives your app the way a user does — any language, framework, or platform. Use for /create-verification-skill, \"make a control skill for this repo\", or when a project has no scripted way to prove UI/CLI/service behavior."
 ---
 
-> Adapted from `cursor/plugins` pstack@fae2c6ed9582. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
+> Adapted from `cursor/plugins` pstack@2eb7ed4613cf. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
 
 # Create a verification skill
 

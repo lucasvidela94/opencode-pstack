@@ -3,7 +3,7 @@ name: principle-never-block-on-the-human
 description: "Apply when tempted to ask 'should I do X?' on reversible work. Proceed, present the result, let the human course-correct after the fact; reserve confirmation for irreversible actions."
 ---
 
-> Adapted from `cursor/plugins` pstack@fae2c6ed9582. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
+> Adapted from `cursor/plugins` pstack@2eb7ed4613cf. Neutral host wording; no content invented. Resolve capability verbs via `skills/poteto-mode/references/hosts/`; deviations in `PORT-NOTES.md`.
 
 # Never Block on the Human
 

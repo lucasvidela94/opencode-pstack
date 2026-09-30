@@ -13,7 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = Path("/tmp/opencode/plugins/pstack")
-COMMIT = "fae2c6ed95821bd85f614a73e4842e13229fa5e5"
+COMMIT = "2eb7ed4613cfc8f098dfe464a23680ea44d84c5e"
 
 CORE_SKILLS = [
     "poteto-mode", "how", "why", "architect", "arena", "swarm", "tdd",

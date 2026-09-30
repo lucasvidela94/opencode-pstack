@@ -38,6 +38,8 @@ OpenCode also needs its agents/commands (the `skills` CLI only installs skills):
 
 Alternatives: Claude Code plugin (`/plugin marketplace add lucasvidela94/opencode-pstack`, manifests in `.claude-plugin/`), Codex plugin (`.codex-plugin/` + `plugin.json`). Restart/reload the agent afterwards. If your Codex build doesn't scan `~/.agents/skills`, copy the skills to `~/.codex/skills`.
 
+New here? [`docs/guide/`](docs/guide/) walks through three real tasks with copy-paste prompts.
+
 ## The skills
 
 **Router:** `poteto-mode` — picks the playbook and runs the rest as steps need them. 23 playbooks: investigation, bug fix, perf, hillclimb, forensics, feature, refactoring, prototype, visual parity, babysit, shipping, autopilot, orchestrate, and more.
