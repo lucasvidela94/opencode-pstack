@@ -23,6 +23,12 @@ OpenCode also needs its agents/commands (the `skills` CLI only installs skills):
 ./scripts/setup-opencode.sh --global   # or --project
 ```
 
+Direct-clone alternative (no installer): copy `.opencode/` into your project — it contains a synced `skills/` mirror plus agents and commands:
+
+```bash
+cp -R /path/to/opencode-pstack/.opencode /path/to/project/
+```
+
 Claude Code plugin alternative: `/plugin marketplace add <tu-usuario>/opencode-pstack`, then install from the marketplace (see `.claude-plugin/`). Codex plugin alternative: manifests in `.codex-plugin/` + `plugin.json`.
 
 Restart/reload the agent so it rescans skills.

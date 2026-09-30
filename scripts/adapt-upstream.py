@@ -209,7 +209,14 @@ def main():
                    Path(".opencode/agents") / a)
 
     (ROOT / "UPSTREAM_COMMIT").write_text(COMMIT + "\n")
-    print(f"ported {len(skill_dirs)} skills + playbooks + 2 agents @ {COMMIT[:12]}")
+
+    # .opencode/skills mirror: repo root skills/ is not an OpenCode discovery
+    # location, so a fresh clone would fail `skill` ID loads (verified live).
+    mirror = ROOT / ".opencode" / "skills"
+    if mirror.exists():
+        shutil.rmtree(mirror)
+    shutil.copytree(ROOT / "skills", mirror)
+    print(f"ported {len(skill_dirs)} skills + playbooks + 2 agents @ {COMMIT[:12]} (mirror synced)")
 
 
 if __name__ == "__main__":

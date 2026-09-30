@@ -57,6 +57,14 @@ for m in "$ROOT"/.claude-plugin/plugin.json "$ROOT"/.claude-plugin/marketplace.j
   python3 -m json.tool "$m" >/dev/null 2>&1 || fail "invalid JSON: ${m#$ROOT/}"
 done
 
+# .opencode/skills mirror stays identical to canonical skills/
+if [ ! -d "$ROOT/.opencode/skills" ]; then
+  fail "missing .opencode/skills mirror (run scripts/adapt-upstream.py)"
+elif ! diff -r -q "$ROOT/skills" "$ROOT/.opencode/skills" >/dev/null 2>&1; then
+  fail ".opencode/skills mirror out of sync (run scripts/adapt-upstream.py)"
+  diff -r -q "$ROOT/skills" "$ROOT/.opencode/skills" 2>&1 | head -5 | while IFS= read -r line; do fail "mirror: $line"; done || true
+fi
+
 if [ -s "$FAIL_FILE" ]; then
   printf 'GATE FAILED\n'; rm -f "$FAIL_FILE"; exit 1
 fi
