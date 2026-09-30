@@ -15,7 +15,7 @@ npx -y skills@latest add <tu-usuario>/opencode-pstack --skill '*' --agent claude
 npx -y skills@latest add <tu-usuario>/opencode-pstack --skill '*' --agent codex --global --yes
 ```
 
-Verified with the `skills` CLI: it discovers all 35 skills and installs byte-identical copies to `~/.agents/skills` (OpenCode, Codex) and `~/.claude/skills` (Claude Code). If your Codex build doesn't pick up `~/.agents/skills`, copy the skills to `~/.codex/skills` (`$CODEX_HOME/skills`), which Codex always scans.
+Verified with the `skills` CLI: it discovers all 37 skills and installs byte-identical copies to `~/.agents/skills` (OpenCode, Codex) and `~/.claude/skills` (Claude Code). If your Codex build doesn't pick up `~/.agents/skills`, copy the skills to `~/.codex/skills` (`$CODEX_HOME/skills`), which Codex always scans.
 
 OpenCode also needs its agents/commands (the `skills` CLI only installs skills):
 
