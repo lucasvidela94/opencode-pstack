@@ -40,6 +40,8 @@ OpenCode also needs its agents/commands (the `skills` CLI only installs skills):
 
 Verified with the `skills` CLI: it discovers all 45 skills and installs byte-identical copies to `~/.agents/skills` (OpenCode, Codex) and `~/.claude/skills` (Claude Code).
 
+Support status: OpenCode is verified end-to-end (install, skill load, subagent delegation, verification). Claude Code and Codex installs are verified; runtime behavior follows the documented adapters — report what you see in [issues](https://github.com/lucasvidela94/opencode-pstack/issues).
+
 Alternatives: Claude Code plugin (`/plugin marketplace add lucasvidela94/opencode-pstack`, manifests in `.claude-plugin/`), Codex plugin (`.codex-plugin/` + `plugin.json`). Restart/reload the agent afterwards. If your Codex build doesn't scan `~/.agents/skills`, copy the skills to `~/.codex/skills`.
 
 New here? [`docs/guide/`](docs/guide/) walks through three real tasks with copy-paste prompts.
