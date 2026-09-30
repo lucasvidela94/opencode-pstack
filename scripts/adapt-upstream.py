@@ -153,9 +153,12 @@ def adapt_file(src, dst, rel):
         dst.write_text(HEADER + note + body)
 
 
-# Repo-owned paths the sync never writes or deletes (our host-mapping docs).
+# Repo-owned paths the sync never writes or deletes (our own docs/skills).
 OURS_EXACT = {"skills/poteto-mode/references/substitution-table.md"}
-OURS_PREFIX = ("skills/poteto-mode/references/hosts/",)
+OURS_PREFIX = (
+    "skills/poteto-mode/references/hosts/",
+    "skills/setup-models/",  # original skill, not upstream
+)
 
 # Upstream-owned paths written by the current run (for orphan cleanup).
 WRITTEN = set()
