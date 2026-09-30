@@ -23,12 +23,6 @@ OpenCode also needs its agents/commands (the `skills` CLI only installs skills):
 ./scripts/setup-opencode.sh --global   # or --project
 ```
 
-Direct-clone alternative (no installer): copy `.opencode/` into your project — it contains a synced `skills/` mirror plus agents and commands:
-
-```bash
-cp -R /path/to/opencode-pstack/.opencode /path/to/project/
-```
-
 Claude Code plugin alternative: `/plugin marketplace add <tu-usuario>/opencode-pstack`, then install from the marketplace (see `.claude-plugin/`). Codex plugin alternative: manifests in `.codex-plugin/` + `plugin.json`.
 
 Restart/reload the agent so it rescans skills.
@@ -41,7 +35,11 @@ Ask for the router skill by name for non-trivial work:
 Use the poteto-mode skill. <goal + how you will check it>
 ```
 
-(`$poteto-mode` on Codex, `/poteto-mode` on Claude Code.) Casual turns: just talk normally, no skill needed (see `AGENTS.md` / `CLAUDE.md`).
+(`$poteto-mode` on Codex, `/poteto-mode` on Claude Code.) Casual turns: just talk normally, no skill needed. The repo's own routing line lives in `AGENTS.md`; Claude Code users add the same line to `CLAUDE.md`:
+
+```text
+Non-trivial engineering work: use the `poteto-mode` skill. Casual turns: don't.
+```
 
 ## What is included
 
@@ -59,17 +57,18 @@ skills/poteto-mode/references/hosts/  # _contract.md, opencode.md, claude-code.m
 .opencode/agents|commands/    # OpenCode host package
 .claude-plugin/               # Claude Code plugin + marketplace manifests
 .codex-plugin/plugin.json     # Codex compat manifest (+ portable plugin.json)
-scripts/                      # adapt-upstream.py, check.sh, setup-opencode.sh
+opencode.jsonc                # self-registers ./skills (no committed mirror)
+scripts/                      # adapt-upstream.py, check.py, setup-opencode.sh
 ```
 
 ## Sync upstream
 
-`UPSTREAM_COMMIT` pins the reviewed `cursor/plugins` revision. Re-run `python3 scripts/adapt-upstream.py`, review the diff, run the gate. Policy in `UPSTREAM_SYNC.md`, deviations in `PORT-NOTES.md`.
+`UPSTREAM_COMMIT` pins the reviewed `cursor/plugins` revision. Re-run `python3 scripts/adapt-upstream.py`, review the diff, run the gate. Policy and deviations in `PORT-NOTES.md`.
 
 ## Verify
 
 ```bash
-bash scripts/check.sh
+python3 scripts/check.py
 ```
 
 Gate: frontmatter (`name` == directory, `description` present, no host-specific keys), relative links resolve, no usable Cursor-only tokens, manifests are valid JSON.

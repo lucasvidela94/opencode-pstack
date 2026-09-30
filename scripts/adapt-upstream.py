@@ -128,6 +128,7 @@ def adapt_body(body):
 
 def adapt_file(src, dst, rel):
     dst.parent.mkdir(parents=True, exist_ok=True)
+    WRITTEN.add(rel.as_posix())
     text = src.read_text()
     fm, body = split_frontmatter(text)
     if fm is not None:
@@ -141,30 +142,24 @@ def adapt_file(src, dst, rel):
         dst.write_text(HEADER + note + body)
 
 
+# Repo-owned paths the sync never writes or deletes (our host-mapping docs).
+OURS_EXACT = {"skills/poteto-mode/references/substitution-table.md"}
+OURS_PREFIX = ("skills/poteto-mode/references/hosts/",)
+
+# Upstream-owned paths written by the current run (for orphan cleanup).
+WRITTEN = set()
+
+
+def is_ours(rel):
+    return rel in OURS_EXACT or rel.startswith(OURS_PREFIX)
+
+
 def main():
     if not SRC.exists():
         sys.exit(f"upstream checkout missing: {SRC}")
     principle_dirs = sorted(p.name for p in (SRC / "skills").iterdir()
                             if p.is_dir() and p.name.startswith("principle-"))
     skill_dirs = CORE_SKILLS + principle_dirs
-
-    # our own host-mapping files live inside poteto-mode/references: preserve them
-    keep = {}
-    for ours in ["references/substitution-table.md"]:
-        p = ROOT / "skills" / "poteto-mode" / ours
-        if p.exists():
-            keep[ours] = p.read_text()
-    hosts_dir = ROOT / "skills" / "poteto-mode" / "references" / "hosts"
-    hosts_keep = {}
-    if hosts_dir.exists():
-        for f in sorted(hosts_dir.glob("*.md")):
-            hosts_keep[f.name] = f.read_text()
-
-    # clean previously generated skill trees (keep our own references/*.md)
-    for name in skill_dirs:
-        d = ROOT / "skills" / name
-        if d.exists():
-            shutil.rmtree(d)
 
     for name in skill_dirs:
         s = SRC / "skills" / name
@@ -180,6 +175,7 @@ def main():
                         adapt_file(f, ROOT / rel, rel)
                     else:
                         shutil.copy2(f, ROOT / rel)
+                        WRITTEN.add(rel.as_posix())
 
     # poteto-mode playbooks + references (scripts/ intentionally omitted)
     pm, dst_pm = SRC / "skills" / "poteto-mode", ROOT / "skills" / "poteto-mode"
@@ -188,20 +184,23 @@ def main():
         adapt_file(pb, dst_pm / "playbooks" / pb.name, rel)
     for f in sorted((pm / "references").glob("*.md")):
         rel = Path("skills/poteto-mode/references") / f.name
-        if (dst_pm / "references" / f.name).exists():
-            continue  # keep our opencode-tools.md / substitution-table.md
+        if is_ours(rel.as_posix()):
+            continue
         adapt_file(f, dst_pm / "references" / f.name, rel)
 
-    for ours, text in keep.items():
-        p = ROOT / "skills" / "poteto-mode" / ours
-        if not p.exists():
-            p.parent.mkdir(parents=True, exist_ok=True)
-            p.write_text(text)
-    for name, text in hosts_keep.items():
-        p = hosts_dir / name
-        if not p.exists():
-            hosts_dir.mkdir(parents=True, exist_ok=True)
-            p.write_text(text)
+    # orphan cleanup: drop generated files upstream no longer ships.
+    # Repo-owned paths are never touched.
+    for base in (ROOT / "skills", ROOT / ".opencode" / "agents"):
+        for f in sorted(base.rglob("*")):
+            if f.is_file():
+                rel = f.relative_to(ROOT).as_posix()
+                if rel not in WRITTEN and not is_ours(rel):
+                    f.unlink()
+        for d in sorted((p for p in base.rglob("*") if p.is_dir()), reverse=True):
+            try:
+                d.rmdir()
+            except OSError:
+                pass
 
     # agents
     for a in ["poteto-agent.md", "comment-sicko.md"]:
@@ -209,14 +208,7 @@ def main():
                    Path(".opencode/agents") / a)
 
     (ROOT / "UPSTREAM_COMMIT").write_text(COMMIT + "\n")
-
-    # .opencode/skills mirror: repo root skills/ is not an OpenCode discovery
-    # location, so a fresh clone would fail `skill` ID loads (verified live).
-    mirror = ROOT / ".opencode" / "skills"
-    if mirror.exists():
-        shutil.rmtree(mirror)
-    shutil.copytree(ROOT / "skills", mirror)
-    print(f"ported {len(skill_dirs)} skills + playbooks + 2 agents @ {COMMIT[:12]} (mirror synced)")
+    print(f"ported {len(skill_dirs)} skills + playbooks + 2 agents @ {COMMIT[:12]}")
 
 
 if __name__ == "__main__":

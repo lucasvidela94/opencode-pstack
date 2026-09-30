@@ -1,4 +1,4 @@
-# Substitution table: Cursor pstack -> OpenCode
+# Substitution table: Cursor pstack -> host-neutral skills
 
 Checklist for every ported file (applied by `scripts/adapt-upstream.py`). Translate, don't copy.
 
