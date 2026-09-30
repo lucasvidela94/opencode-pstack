@@ -43,7 +43,7 @@ Non-trivial engineering work: use the `poteto-mode` skill. Casual turns: don't.
 
 ## What is included
 
-35 skills: `poteto-mode`, `how`, `why`, `architect`, `arena`, `swarm`, `tdd`, `interrogate`, `blast-radius`, `unslop`, `no-comments`, `typescript-best-practices` + the 23 upstream `principle-*` leaf skills (kept as skills: the router names them, the agent reads the leaf `SKILL.md` before applying one).
+37 skills: `poteto-mode`, `how`, `why`, `architect`, `arena`, `swarm`, `tdd`, `interrogate`, `blast-radius`, `unslop`, `no-comments`, `technical-writing`, `show-me-your-work`, `typescript-best-practices` + the 23 upstream `principle-*` leaf skills (kept as skills: the router names them, the agent reads the leaf `SKILL.md` before applying one). `show-me-your-work` ships its portable `scripts/log.sh` helper verbatim.
 
 23 playbooks under `skills/poteto-mode/playbooks/`. Agents `poteto-agent` + `comment-sicko` (OpenCode: `.opencode/agents/`; other hosts: resolve via the host adapter).
 

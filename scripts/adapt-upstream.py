@@ -19,7 +19,12 @@ CORE_SKILLS = [
     "poteto-mode", "how", "why", "architect", "arena", "swarm", "tdd",
     "interrogate", "blast-radius", "unslop", "no-comments",
     "typescript-best-practices",
+    # phase 2a: most-cited by the core (opening-a-pr, long/autonomous runs)
+    "technical-writing", "show-me-your-work",
 ]
+# Skills whose scripts/ helpers are portable and referenced by the body.
+# (poteto-mode/scripts stays omitted: Cursor-oriented tooling.)
+SKILL_SCRIPTS = {"show-me-your-work"}
 # principle-* discovered dynamically (23 upstream).
 DROP_FRONTMATTER_KEYS = {
     "disable-model-invocation", "mode", "icon", "color", "reminder",
@@ -54,6 +59,7 @@ LIMITS_FILES = {
     "skills/poteto-mode/SKILL.md",
     "skills/arena/SKILL.md",
     "skills/swarm/SKILL.md",
+    "skills/show-me-your-work/SKILL.md",
 }
 
 HOSTS = "skills/poteto-mode/references/hosts/"
@@ -176,6 +182,14 @@ def main():
                     else:
                         shutil.copy2(f, ROOT / rel)
                         WRITTEN.add(rel.as_posix())
+        scr = s / "scripts"
+        if name in SKILL_SCRIPTS and scr.exists():
+            for f in sorted(scr.rglob("*")):
+                if f.is_file():
+                    rel = Path("skills") / name / "scripts" / f.relative_to(scr)
+                    (ROOT / rel.parent).mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(f, ROOT / rel)
+                    WRITTEN.add(rel.as_posix())
 
     # poteto-mode playbooks + references (scripts/ intentionally omitted)
     pm, dst_pm = SRC / "skills" / "poteto-mode", ROOT / "skills" / "poteto-mode"

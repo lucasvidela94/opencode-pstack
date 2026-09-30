@@ -46,4 +46,4 @@ How this repo relates to upstream, and every deliberate deviation. Nothing here 
 
 ## Not yet ported (phase 2)
 
-`reflect`, `figure-it-out`, `show-me-your-work`, `recall`, `teach`, `technical-writing`, `create-verification-skill`, `maintain-verification-skill`, `bro`, `automate-me`, `setup-pstack`, `make-bot-ui`. Router text may name them; treat as unavailable until ported.
+`reflect`, `figure-it-out`, `recall`, `teach`, `create-verification-skill`, `maintain-verification-skill`, `bro`, `automate-me`, `setup-pstack`, `make-bot-ui`. Router text may name them; treat as unavailable until ported.
