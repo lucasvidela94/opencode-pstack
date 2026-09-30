@@ -21,6 +21,8 @@ CORE_SKILLS = [
     "typescript-best-practices",
     # phase 2a: most-cited by the core (opening-a-pr, long/autonomous runs)
     "technical-writing", "show-me-your-work",
+    # phase 2b: bespoke playbooks + project-local verification skills
+    "figure-it-out", "create-verification-skill", "maintain-verification-skill",
 ]
 # Skills whose scripts/ helpers are portable and referenced by the body.
 # (poteto-mode/scripts stays omitted: Cursor-oriented tooling.)
@@ -87,6 +89,9 @@ BODY_RULES = [
     (re.compile(r"Task schema"), f"subagent call format (see `{HOSTS}`)"),
     (re.compile(r"<Task as a verb phrase>"), "<subagent as a verb phrase>"),
     (re.compile(r"Substituting `generalPurpose`"), "Substituting another general-purpose subagent"),
+    (re.compile(r"`?\.cursor/skills/([^\s`]+)`?"),
+     r"`<host-skills>/\1` (OpenCode `.opencode/skills/`, Claude Code `.claude/skills/`, "
+     r"Codex `.agents/skills/`; see `" + HOSTS + "`)"),
 ]
 
 

@@ -15,7 +15,7 @@ npx -y skills@latest add <tu-usuario>/opencode-pstack --skill '*' --agent claude
 npx -y skills@latest add <tu-usuario>/opencode-pstack --skill '*' --agent codex --global --yes
 ```
 
-Verified with the `skills` CLI: it discovers all 37 skills and installs byte-identical copies to `~/.agents/skills` (OpenCode, Codex) and `~/.claude/skills` (Claude Code). If your Codex build doesn't pick up `~/.agents/skills`, copy the skills to `~/.codex/skills` (`$CODEX_HOME/skills`), which Codex always scans.
+Verified with the `skills` CLI: it discovers all 40 skills and installs byte-identical copies to `~/.agents/skills` (OpenCode, Codex) and `~/.claude/skills` (Claude Code). If your Codex build doesn't pick up `~/.agents/skills`, copy the skills to `~/.codex/skills` (`$CODEX_HOME/skills`), which Codex always scans.
 
 OpenCode also needs its agents/commands (the `skills` CLI only installs skills):
 
@@ -43,7 +43,7 @@ Non-trivial engineering work: use the `poteto-mode` skill. Casual turns: don't.
 
 ## What is included
 
-37 skills: `poteto-mode`, `how`, `why`, `architect`, `arena`, `swarm`, `tdd`, `interrogate`, `blast-radius`, `unslop`, `no-comments`, `technical-writing`, `show-me-your-work`, `typescript-best-practices` + the 23 upstream `principle-*` leaf skills (kept as skills: the router names them, the agent reads the leaf `SKILL.md` before applying one). `show-me-your-work` ships its portable `scripts/log.sh` helper verbatim.
+40 skills: `poteto-mode`, `how`, `why`, `architect`, `arena`, `swarm`, `tdd`, `interrogate`, `blast-radius`, `unslop`, `no-comments`, `technical-writing`, `show-me-your-work`, `figure-it-out`, `create-verification-skill`, `maintain-verification-skill`, `typescript-best-practices` + the 23 upstream `principle-*` leaf skills (kept as skills: the router names them, the agent reads the leaf `SKILL.md` before applying one). `show-me-your-work` ships its portable `scripts/log.sh` helper verbatim.
 
 23 playbooks under `skills/poteto-mode/playbooks/`. Agents `poteto-agent` + `comment-sicko` (OpenCode: `.opencode/agents/`; other hosts: resolve via the host adapter).
 
